@@ -71,7 +71,7 @@ class ProductsTable extends StatelessWidget {
             right: const BorderSide(color: AppTheme.borderColor),
           ),
           columns: const [
-            DataColumn(label: Text('Image URL')),
+            DataColumn(label: Text('Image')),
             DataColumn(label: Text('Title')),
             DataColumn(label: Text('Price'), numeric: true),
             DataColumn(label: Text('Seller')),
@@ -94,19 +94,9 @@ class ProductsTable extends StatelessWidget {
   ) {
     return DataRow(
       cells: [
-        // Image URL
+        // Image
         DataCell(
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 160),
-            child: Text(
-              product.imageUrl ?? 'N/A',
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 12,
-                color: AppTheme.textSecondary,
-              ),
-            ),
-          ),
+          _ProductImage(imageUrl: product.imageUrl),
         ),
 
         // Title
@@ -227,6 +217,62 @@ class _StatusBadge extends StatelessWidget {
           letterSpacing: 0.5,
         ),
       ),
+    );
+  }
+}
+
+class _ProductImage extends StatelessWidget {
+  final String? imageUrl;
+
+  const _ProductImage({this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 64,
+      height: 56,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF3F4F6),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: AppTheme.borderColor),
+      ),
+      clipBehavior: Clip.hardEdge,
+      child: imageUrl != null && imageUrl!.isNotEmpty
+          ? Image.network(
+              imageUrl!,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const Center(
+                  child: SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppTheme.primaryColor,
+                    ),
+                  ),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) => const Center(
+                child: Text(
+                  'No image',
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: AppTheme.textSecondary,
+                  ),
+                ),
+              ),
+            )
+          : const Center(
+              child: Text(
+                'No image',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: AppTheme.textSecondary,
+                ),
+              ),
+            ),
     );
   }
 }
