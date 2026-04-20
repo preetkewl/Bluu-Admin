@@ -41831,7 +41831,7 @@ A.asp.prototype={
 $0(){return this.a},
 $S:458}
 A.asq.prototype={
-$0(){var s,r="application/json",q=new A.tg(),p=A.aHq("https://cruelly-unblistered-hedy.ngrok-free.dev",B.nc,A.an(["Content-Type",r,"Accept",r],t.N,t.z),B.nc),o=new A.La(A.c([B.Bt],t.i6))
+$0(){var s,r="application/json",q=new A.tg(),p=A.aHq("https://cruelly-unblistered-hedy.ngrok-free.dev",B.nc,A.an(["Content-Type",r,"Accept",r,"ngrok-skip-browser-warning","true"],t.N,t.z),B.nc),o=new A.La(A.c([B.Bt],t.i6))
 o.P(o,B.Hr)
 s=new A.JP($,o,$,new A.a3Q(51200),!1)
 s.Ve$=p
