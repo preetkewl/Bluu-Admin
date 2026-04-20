@@ -1,7 +1,7 @@
 class ApiEndpoints {
   ApiEndpoints._();
 
-  static const String baseUrl = 'http://localhost:5000';
+  static const String baseUrl = 'https://cruelly-unblistered-hedy.ngrok-free.dev';
 
   static const String login = '/auth/login';
   static const String productsByStatus = '/products/by-status';
