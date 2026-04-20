@@ -60,6 +60,8 @@ class ProductsTable extends StatelessWidget {
           columnSpacing: 24,
           horizontalMargin: 20,
           dividerThickness: 1,
+          dataRowMinHeight: 72,
+          dataRowMaxHeight: 72,
           border: TableBorder(
             horizontalInside: const BorderSide(
               color: AppTheme.borderColor,

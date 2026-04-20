@@ -12,8 +12,9 @@ class ProductModel extends ProductEntity {
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
-    // Handle various possible API response shapes
-    final seller = json['seller'] as Map<String, dynamic>?;
+    // Seller info is in 'userId' field (populated object)
+    final userMap = json['userId'] as Map<String, dynamic>?;
+    final sellerMap = json['seller'] as Map<String, dynamic>?;
 
     return ProductModel(
       id: json['_id'] as String? ?? json['id'] as String? ?? '',
@@ -23,11 +24,14 @@ class ProductModel extends ProductEntity {
       price: (json['price'] as num?)?.toDouble() ?? 0.0,
       status: json['status'] as String? ?? 'pending',
       imageUrl: _extractImageUrl(json),
-      sellerName: seller?['name'] as String? ??
-          seller?['email'] as String? ??
+      sellerName: userMap?['fullName'] as String? ??
+          userMap?['name'] as String? ??
+          userMap?['email'] as String? ??
+          sellerMap?['fullName'] as String? ??
+          sellerMap?['name'] as String? ??
           json['sellerName'] as String?,
-      sellerId: seller?['_id'] as String? ??
-          seller?['id'] as String? ??
+      sellerId: userMap?['_id'] as String? ??
+          sellerMap?['_id'] as String? ??
           json['sellerId'] as String?,
     );
   }
