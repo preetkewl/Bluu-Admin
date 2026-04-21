@@ -8,6 +8,8 @@ import '../../features/auth/presentation/bloc/auth_state.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/products/presentation/screens/dashboard_screen.dart';
 import '../../features/products/presentation/screens/products_screen.dart';
+import '../../features/products/presentation/screens/product_detail_screen.dart';
+import '../../features/products/domain/entities/product_entity.dart';
 import '../../features/products/presentation/bloc/products_bloc.dart';
 import 'constants.dart';
 import 'service_locator.dart';
@@ -67,6 +69,27 @@ GoRouter buildRouter() {
               ],
               child: _WithLogoutRedirect(child: const ProductsScreen()),
             ),
+            routes: [
+              GoRoute(
+                path: ':id',
+                builder: (context, state) {
+                  final product = state.extra as ProductEntity;
+                  return MultiBlocProvider(
+                    providers: [
+                      BlocProvider<AuthBloc>.value(
+                        value: _getOrCreateAuthBloc(),
+                      ),
+                      BlocProvider<ProductsBloc>(
+                        create: (_) => sl<ProductsBloc>(),
+                      ),
+                    ],
+                    child: _WithLogoutRedirect(
+                      child: ProductDetailScreen(product: product),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ],
       ),
