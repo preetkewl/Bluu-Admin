@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../shared/theme/app_theme.dart';
 import '../../domain/entities/product_entity.dart';
 import '../bloc/products_bloc.dart';
@@ -95,6 +96,8 @@ class ProductsTable extends StatelessWidget {
     bool isActionLoading,
   ) {
     return DataRow(
+      onSelectChanged: (_) =>
+          context.go('/dashboard/products/${product.id}', extra: product),
       cells: [
         // Image
         DataCell(
