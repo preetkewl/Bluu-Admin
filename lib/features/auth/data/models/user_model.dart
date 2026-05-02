@@ -5,6 +5,7 @@ class UserModel extends UserEntity {
     required super.email,
     required super.token,
     super.name,
+    super.role,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -31,14 +32,20 @@ class UserModel extends UserEntity {
         json['name'] as String? ??
         (json['data'] as Map<String, dynamic>?)?['name'] as String?;
 
-    return UserModel(email: email, token: token, name: name);
+    final String? role =
+        userMap?['role'] as String? ??
+        json['role'] as String? ??
+        (json['data'] as Map<String, dynamic>?)?['role'] as String?;
+
+    return UserModel(email: email, token: token, name: name, role: role);
   }
 
-  UserModel copyWith({String? email, String? token, String? name}) {
+  UserModel copyWith({String? email, String? token, String? name, String? role}) {
     return UserModel(
       email: email ?? this.email,
       token: token ?? this.token,
       name: name ?? this.name,
+      role: role ?? this.role,
     );
   }
 
@@ -46,5 +53,6 @@ class UserModel extends UserEntity {
         'email': email,
         'token': token,
         if (name != null) 'name': name,
+        if (role != null) 'role': role,
       };
 }

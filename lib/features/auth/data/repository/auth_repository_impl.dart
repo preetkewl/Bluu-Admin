@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/error/app_error.dart';
 import '../../../../core/utils/constants.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repository/auth_repository.dart';
@@ -25,6 +26,10 @@ class AuthRepositoryImpl implements AuthRepository {
     );
 
     final user = await _remoteDataSource.login(request);
+
+    if (user.role != 'SUPER_ADMIN') {
+      throw const AppError(message: 'Super admin access required');
+    }
 
     if (user.token.isNotEmpty) {
       await _prefs.setString(AppConstants.authTokenKey, user.token);

@@ -119,7 +119,7 @@ class ProductsTable extends StatelessWidget {
         // Price
         DataCell(
           Text(
-            '\$${product.price.toStringAsFixed(2)}',
+            '₹${product.price.toStringAsFixed(0)}',
             style: const TextStyle(fontWeight: FontWeight.w500),
           ),
         ),

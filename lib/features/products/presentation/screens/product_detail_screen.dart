@@ -235,7 +235,7 @@ class _ProductInfo extends StatelessWidget {
         Row(
           children: [
             Text(
-              '\$${product.price.toStringAsFixed(2)}',
+              '₹${product.price.toStringAsFixed(0)}',
               style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -280,7 +280,7 @@ class _MetadataGrid extends StatelessWidget {
           label: 'Seller Name', value: product.sellerName ?? 'Unknown'),
       _MetaField(label: 'Seller ID', value: product.sellerId ?? 'N/A'),
       _MetaField(
-          label: 'Price', value: '\$${product.price.toStringAsFixed(2)}'),
+          label: 'Price', value: '₹${product.price.toStringAsFixed(0)}'),
     ];
 
     return Column(
